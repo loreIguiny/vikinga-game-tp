@@ -9,14 +9,10 @@ public class Juego extends InterfaceJuego {
 
 	// Variables y métodos propios de cada grupo
 	Barbariana barbariana;
-	Piso piso1;
-	Piso piso2;
-	Piso piso3;
-	Piso piso4;
-	Piso piso5;
-	Piso[] pisos = new Piso[5];
 	Computadora computadora;
-	Velociraptor velociraptor;
+
+	Piso[] pisos;
+	Velociraptor[] velociraptors;
 
 	Juego() {
 		// Inicializa el objeto entorno
@@ -24,26 +20,16 @@ public class Juego extends InterfaceJuego {
 
 		// Inicializar lo que haga falta para el juego
 		barbariana = new Barbariana(400, 550, 50, 20, "abajo");
+		this.computadora = new Computadora(200, 60, 50, 50);
+
+		this.pisos = new Piso[] { new Piso(600, 200, 500, 10), new Piso(100, 300, 650, 10), new Piso(300, 500, 600, 10),
+				new Piso(500, 400, 700, 10), new Piso(100, 100, 680, 10) };
+
+		this.velociraptors = new Velociraptor[] { new Velociraptor(400, 180, 50, 20),
+				new Velociraptor(100, 300, 50, 20) };
 
 		// Inicia el juego!
 		this.entorno.iniciar();
-
-		{
-			this.piso1 = new Piso(600, 200, 500, 10);
-			this.piso2 = new Piso(100, 300, 650, 10);
-			this.piso3 = new Piso(300, 500, 600, 10);
-			this.piso4 = new Piso(500, 400, 700, 10);
-			this.piso5 = new Piso(100, 100, 680, 10);
-
-			pisos[0] = piso1;
-			pisos[1] = piso2;
-			pisos[2] = piso3;
-			pisos[3] = piso4;
-			pisos[4] = piso5;
-
-			this.computadora = new Computadora(200, 60, 50, 50);
-			this.velociraptor = new Velociraptor(400, 180, 50, 20);
-		}
 	}
 
 	@SuppressWarnings("unused")
@@ -68,6 +54,8 @@ public class Juego extends InterfaceJuego {
 	}
 
 	private void moverPersonaje() {
+
+
 		if (this.entorno.estaPresionada(this.entorno.TECLA_IZQUIERDA) && this.barbariana.getX() > 15) {
 			this.barbariana.setDireccion("izquierda");
 			barbariana.moverIzquierda();
@@ -76,34 +64,40 @@ public class Juego extends InterfaceJuego {
 			this.barbariana.setDireccion("derecha");
 			barbariana.moverDerecha();
 		}
-		if (this.entorno.estaPresionada(this.entorno.TECLA_ARRIBA) && this.barbariana.getX() > 15) {
-			this.barbariana.setDireccion("arriba");
-			barbariana.moverArriba();
-		}
 		if (this.entorno.estaPresionada(this.entorno.TECLA_ABAJO) && this.barbariana.getY() < 600) {
 			this.barbariana.setDireccion("abajo");
 			barbariana.moverAbajo();
 		}
-		if (!this.entorno.estaPresionada(this.entorno.TECLA_ARRIBA) && this.barbariana.getY() < 550
-				&& !this.barbariana.colisiona(pisos)) {
 
+		if(!this.barbariana.colisiona(pisos) && this.entorno.estaPresionada(this.entorno.TECLA_ARRIBA)){
+			this.barbariana.setDireccion("arriba");
+			barbariana.moverArriba();
+		}
+		else if(this.barbariana.getY() < 600){
+			this.barbariana.setDireccion("abajo");
 			barbariana.caer();
 		}
+
+
 	}
 
 	private void dibujarElementos() {
+		// dibujo la barbariana
 		barbariana.dibujarse(entorno);
 
-		this.piso1.dibujarse(entorno);
-		this.piso2.dibujarse(entorno);
-		this.piso3.dibujarse(entorno);
-		this.piso4.dibujarse(entorno);
-		this.piso5.dibujarse(entorno);
+		// dibujo los pisos
+		for (int p = 0; p < pisos.length; p++) {
+			pisos[p].dibujarse(entorno);
+		}
 
+		// dibujo los velociraptors
+		for (int v = 0; v < velociraptors.length; v++) {
+			velociraptors[v].dibujar(entorno);
+		}
+
+		// dibujo la computadora
 		this.computadora.dibujar(entorno);
 
-		this.velociraptor.dibujar(entorno);
 	}
-
 
 }

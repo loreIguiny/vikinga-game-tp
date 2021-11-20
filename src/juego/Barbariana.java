@@ -15,7 +15,7 @@ public class Barbariana {
 
 	// private boolean morir;
 
-	public Barbariana(final int x, final int y, final int alto, final int ancho, final String direccion) { // constructor
+	public Barbariana(int x, int y, int alto, int ancho, String direccion) { // constructor
 		this.x = x;
 		this.y = y;
 		this.alto = alto;
@@ -28,7 +28,7 @@ public class Barbariana {
 	// ******* METODOS ********//
 
 	// DIBUJARSE
-	public void dibujarse(final Entorno entorno) { // parametro entorno
+	public void dibujarse(Entorno entorno) { // parametro entorno
 		entorno.dibujarCirculo(x, y, alto, Color.white);
 		// entorno.dibujarImagen (imagen, this.x, this.y, 0,0.03);
 	}
@@ -65,7 +65,7 @@ public class Barbariana {
 		return x;
 	}
 
-	public void setX(final int x) {
+	public void setX(int x) {
 		this.x = x;
 	}
 
@@ -73,7 +73,7 @@ public class Barbariana {
 		return y;
 	}
 
-	public void setY(final int y) {
+	public void setY(int y) {
 		this.y = y;
 	}
 
@@ -81,7 +81,7 @@ public class Barbariana {
 		return alto;
 	}
 
-	public void setAlto(final int alto) {
+	public void setAlto(int alto) {
 		this.alto = alto;
 	}
 
@@ -89,7 +89,7 @@ public class Barbariana {
 		return ancho;
 	}
 
-	public void setAncho(final int ancho) {
+	public void setAncho(int ancho) {
 		this.ancho = ancho;
 	}
 
@@ -97,11 +97,11 @@ public class Barbariana {
 		return direccion;
 	}
 
-	public void setDireccion(final String direccion) {
+	public void setDireccion(String direccion) {
 		this.direccion = direccion;
 	}
 
-	public boolean colisiona(final Piso[] pisos) {
+	public boolean colisiona(Piso[] pisos) {
 
 		for (int i = 0; i < pisos.length; i++) {
 			if ((this.y + this.alto / 2 > pisos[i].getY() - pisos[i].getAlto() / 2)
@@ -112,8 +112,10 @@ public class Barbariana {
 			}
 
 		}
+
 		return false;
 	}
+
 
 	/*
 	 * public Image getImagen() { return imagen; }
